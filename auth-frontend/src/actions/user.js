@@ -1,4 +1,3 @@
-import * from './adapters'
 
 export function signInUser(username, password) {
   return dispatch => {

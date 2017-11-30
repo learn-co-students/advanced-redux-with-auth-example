@@ -9,18 +9,27 @@ class UserPage extends React.Component {
     this.props.getUsers()
   }
 
+  usernames = () => {
+    let names = []
+    for(let key in this.props.usersReducer.users) {
+      names.push(<li key={key}>{this.props.usersReducer.users[key].username}</li>)
+    }
+    return names
+  }
+
 
   render() {
-    console.log(this.props);
     return(
-      <div>
-        {this.props.usersReducer.loading
-          ? "Downloading Internet.."
-          : this.props.usersReducer.username}
+      <div className="wrapper">
+        <div className="one">
+          {(!this.props.usersReducer.users) ? "Downloading Internet.." : <div><ul>{this.usernames()}</ul></div>}
+        </div>
+        <div className="two">
+          {}
+        </div>
       </div>
     )
   }
-
 }
 
 

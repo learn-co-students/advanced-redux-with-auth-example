@@ -1,3 +1,5 @@
+import { userNormalizr } from '../normalizr/normalizr'
+
 export default function usersReducer(
   state = { username: null, loggedIn: false, loading: false, users: [] },
   action
@@ -18,7 +20,8 @@ export default function usersReducer(
       localStorage.removeItem("jwt");
       return { ...state, username: null, loggedIn: false };
     case "SET_USERS":
-      return {...state, users: action.payload}
+      let normalizedUsers = userNormalizr(action.payload)
+      return {...state, users: normalizedUsers.entities.users }
     default:
       return state;
   }

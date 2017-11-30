@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import Profile from "./components/Profile";
+import UserPage from "./components/UserPage";
 import LoginForm from "./components/LoginForm";
 import Navigation from "./components/Navigation";
 import { connect } from "react-redux";
@@ -26,13 +27,7 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={() => (
-              <div>
-                {this.props.usersReducer.loading
-                  ? "Downloading Internet.."
-                  : this.props.usersReducer.username}
-              </div>
-            )}
+            render={() => <UserPage/>}
           />
           <Route exact path="/map" render={() => <div>Mapppppppp</div>} />
           <Route exact path="/profile" component={AuthProfile} />

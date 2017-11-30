@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-100 .times do
+100.times do
   User.create({ username: Faker::RickAndMorty.character, password: "1" })
+end
+
+100.times do
+  Post.create(title: Faker::Company.catch_phrase, content: Faker::Hipster.paragraph(6, true, 4), user: User.all[rand(100)+1])
+end
+
+200.times do
+  Comment.create(content: Faker::FamilyGuy.quote, post: Post.all[rand(100)+1], user: User.all[rand(100)+1])
 end

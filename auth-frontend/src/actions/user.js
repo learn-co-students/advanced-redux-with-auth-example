@@ -1,4 +1,3 @@
-import * from './adapters'
 
 export function signInUser(username, password) {
   return dispatch => {
@@ -15,22 +14,17 @@ export function signInUser(username, password) {
         }
       })
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          dispatch(loginError(response.json()));
-        }
-      })
+      .then(response => response.json())
       .then(userData => {
         dispatch(loginUser(userData));
       });
   };
 }
 
-export function loginError(json) {
-  debugger;
-}
+// export function loginError(json) {
+//   debugger;
+// }
+
 export function signUpUser(username, password) {
   //use thunk here
   return dispatch => {
@@ -55,6 +49,7 @@ export function signUpUser(username, password) {
 }
 
 export function loginUser(userData) {
+  debugger
   return {
     type: "LOGIN_USER",
     payload: userData
@@ -86,4 +81,25 @@ export function logOutUser() {
   return {
     type: "LOG_OUT_USER"
   };
+}
+
+export function setUsers(usersData) {
+  return {
+    type: "SET_USERS",
+    payload: usersData
+  }
+}
+
+export function getUsers() {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/users', {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`
+      }
+    })
+    .then(response => response.json())
+    .then(users => dispatch(setUsers(users)))
+  }
 }

@@ -1,12 +1,22 @@
 import React from 'react'
-
+import { connect } from "react-redux";
+import { getCurrentUser, getUsers } from "./actions/user";
 
 const UserPage = () => {
   return(
     <div>
-      Ussser Page
+      User Page
     </div>
   )
 }
 
-export default UserPage
+const mapStateToProps = ({ usersReducer }) => ({
+  usersReducer
+});
+
+export default (
+  connect(mapStateToProps, {
+    getCurrentUser,
+    getUsers
+  })(UserPage)
+)

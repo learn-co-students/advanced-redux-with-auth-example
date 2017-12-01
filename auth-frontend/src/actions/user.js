@@ -86,3 +86,61 @@ export function logOutUser() {
     type: "LOG_OUT_USER"
   };
 }
+
+export function setUsers(usersData) {
+  return {
+    type: "SET_DATA",
+    payload: usersData
+  }
+}
+
+export function getUsers() {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/users', {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`
+      }
+    })
+    .then(response => response.json())
+    .then(users => dispatch(setUsers(users)))
+  }
+}
+
+// export function postComment(comment) {
+//   return dispatch => {
+//     fetch('http://localhost:3000/api/v1/comments', {
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//         body: JSON.stringify(comment),
+//         Authorization: `Bearer ${localStorage.getItem("jwt")}`
+//       }
+//     })
+//     .then(response => response.json())
+//     .then(users => dispatch(addComment(comment)))
+//   }
+// }
+
+export function updateUser(userObj) {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/users/' + userObj.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        body: JSON.stringify(userObj),
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`
+      }
+    })
+    // .then(response => response.json())
+    .then(users => dispatch(updateUserfunc(userObj)))
+  }
+}
+
+export function updateUserfunc(userObj) {
+  return {
+    type: "UPDATE_USER",
+    payload: userObj
+  }
+}

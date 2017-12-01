@@ -87,7 +87,7 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.usersReducer
+    ...state.dataReducer
   };
 };
 

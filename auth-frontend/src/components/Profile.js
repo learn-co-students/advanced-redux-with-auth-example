@@ -20,6 +20,6 @@ class Profile extends React.Component {
 
 }
 
-const mapStateToProps = (state) => ({ username: state.usersReducer.username })
+const mapStateToProps = (state) => ({ username: state.dataReducer.username })
 
 export default connect(mapStateToProps, {logOutUser})(Profile)

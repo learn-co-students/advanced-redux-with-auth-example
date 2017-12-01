@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
+import UserPage from "./components/UserPage";
 import Profile from "./components/Profile";
 import LoginForm from "./components/LoginForm";
 import Navigation from "./components/Navigation";
@@ -17,7 +18,7 @@ class App extends React.Component {
 
   render() {
     const AuthLoginForm = authorize(LoginForm);
-    const AuthProfile = authorize(Profile);
+    const AuthProfile = authorize(UserPage);
     console.log(this.props);
     return (
       <div className="App">
@@ -26,16 +27,10 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={() => (
-              <div>
-                {this.props.usersReducer.loading
-                  ? "Downloading Internet.."
-                  : this.props.usersReducer.username}
-              </div>
-            )}
+            render={() => <UserPage/>}
           />
           <Route exact path="/map" render={() => <div>Mapppppppp</div>} />
-          <Route exact path="/profile" component={AuthProfile} />
+          <Route exact path="/profile" component={UserPage} />
           <Route
             exact
             path="/login"
@@ -43,7 +38,7 @@ class App extends React.Component {
           />
           <Redirect to="/" />
         </Switch>
-        {this.props.usersReducer.loading ? (
+        {this.props.dataReducer.loading ? (
           <div
             style={{
               position: "absolute",
@@ -62,8 +57,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ usersReducer, locationReducer }) => ({
-  usersReducer,
+const mapStateToProps = ({ dataReducer, locationReducer }) => ({
+  dataReducer,
   locationReducer
 });
 

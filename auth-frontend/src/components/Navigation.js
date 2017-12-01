@@ -36,7 +36,7 @@ const Navigation = props => {
 
 const mapStateToProps = state => {
   return {
-    ...state.usersReducer
+    ...state.dataReducer
   };
 };
 
